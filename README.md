@@ -13,7 +13,9 @@ This is mostly for pirates but also for everyone to have a global view of what's
 ### how to
 1. Edit the csv in the /data folder to your desired plotting verbage. 
 2. Save/Commit to update the chart.
-3. View and Sort! 
+3. View and Sort!
+
+![Chart](https://raw2.github.com/auremoser/images/master/plotr.png) 
 
 ### data
 Data csv looks like this:
