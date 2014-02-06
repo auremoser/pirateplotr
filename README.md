@@ -1,7 +1,8 @@
 pirateplotr
 ===========
 
-Ushahidi viz for pirates to plot projects
+Ushahidi viz for pirates to plot projects.  
+
 Check out the [example here](http://ushahidi-auremoser.dotcloud.com/#).
 
 ### about
