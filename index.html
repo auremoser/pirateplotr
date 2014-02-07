@@ -1,334 +1,335 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>The 2014 Ushahidi Project Tracker</title>
-    <!--quick thing for rob to do project tracking at ushahidi-->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="libs/d3.v3.min.js"></script>
-    <script src="libs/jquery.isotope.min.js"></script>
+	<title>The 2014 Ushahidi Project Tracker</title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="libs/d3.v3.min.js"></script>
+	<script src="libs/jquery.isotope.min.js"></script>
+	<link rel="stylesheet" href="assets/normalize.css">
+	<link rel="stylesheet" href="assets/foundation.min.css">
+	<style>
+		html,body {
+			padding-top: 20px;
+		}
+		html,body,h1,h6,li,a {
+			font-family: "Proxima Nova",Helvetica,Arial,sans-serif !important;
+		}
+		.axis path,
+		.axis line {
+			fill: none;
+			stroke: none;
+			shape-rendering: crispEdges;
+		}
+		.axis text {
+			font-family: sans-serif;
+			font-size: 11px;
+		}
+		.bar{
+			background-color:#fc0;
+			height:20px;
+			margin-bottom:10px;
+		}
+		.bar-wrapper{
+			width:100%;
+		}
+		.bar-wrapper:hover .bar{
+			opacity:.75;
+			-moz-opacity:.75;
+			-webkit-opacity:.75;
+		}
+		.bar-wrapper:hover .bar-name{
+			text-decoration: underline;
 
-    <style>
-        .axis path,
-        .axis line {
-            fill: none;
-            stroke: none;
-            shape-rendering: crispEdges;
-        }
-        .axis text {
-            font-family: sans-serif;
-            font-size: 11px;
-        }
-        .bar{
-            background-color:#fc0;
-            height:20px;
-            margin-bottom:10px;
-        }
-        .bar-wrapper{
-            width:100%;
-        }
-        .bar-wrapper:hover .bar{
-            opacity:.75;
-            -moz-opacity:.75;
-            -webkit-opacity:.75;
-        }
-        .bar-wrapper:hover .bar-name{
-            text-decoration: underline;
+		}
+		.bar-name{
+			font-size:11px;
+			font-weight: 300;
+			position: absolute;
+			left: 0;
+			padding-top:4px;
+		}
+		.bar-name:hover{
+			cursor:default;
+		}
 
-        }
-        .bar-name{
-            font-size:11px;
-            font-family: "HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica,sans-serif;
-            font-weight: 300;
-            position: absolute;
-            left: 0;
-            padding-top:4px;
-        }
-        .bar-name:hover{
-            cursor:default;
-        }
-        #button-container{
-            height:100px;
-            font-family: "HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica,sans-serif;
-            font-weight: 300;
-        }
-        h4{
-            padding:0;
-            margin:0;
-        }
-        .button-block li a{
-            font-size:14px;
-            color:#0CD3EE;
-            text-decoration: none;
-        }
-        .button-block li a:hover{
-            text-decoration: underline;
-        }
-        .button-block{
-            float:left;
-            margin-right:20px;
-        }
-        /* Isotope requires a ton of custom styles you can copy and paste from here */
-        /* http://isotope.metafizzy.co/docs/introduction.html */
-        /**** Isotope Filtering ****/
+		h4 {
+			float: left;
+			width: 200px;
+			text-align: right;
+			padding-right: 10px;
+		}
 
-        .isotope-item {
-          z-index: 2;
-        }
+		/* Isotope requires a ton of custom styles you can copy and paste from here */
+		/* http://isotope.metafizzy.co/docs/introduction.html */
+		/**** Isotope Filtering ****/
 
-        .isotope-hidden.isotope-item {
-          pointer-events: none;
-          z-index: 1;
-        }
+		.isotope-item {
+			z-index: 2;
+		}
 
-        /*
-        *Isotope CSS3 transitions 
-        */
+		.isotope-hidden.isotope-item {
+			pointer-events: none;
+			z-index: 1;
+		}
 
-        .isotope,
-        .isotope .isotope-item {
-          -webkit-transition-duration: 0.4s;
-             -moz-transition-duration: 0.4s;
-              -ms-transition-duration: 0.4s;
-               -o-transition-duration: 0.4s;
-                  transition-duration: 0.4s;
-        }
+				/*
+				*Isotope CSS3 transitions 
+				*/
 
-        .isotope {
-          -webkit-transition-property: height, width;
-             -moz-transition-property: height, width;
-              -ms-transition-property: height, width;
-               -o-transition-property: height, width;
-                  transition-property: height, width;
-        }
+				.isotope,
+				.isotope .isotope-item {
+					-webkit-transition-duration: 0.4s;
+					-moz-transition-duration: 0.4s;
+					-ms-transition-duration: 0.4s;
+					-o-transition-duration: 0.4s;
+					transition-duration: 0.4s;
+				}
 
-        .isotope .isotope-item {
-          -webkit-transition-property: -webkit-transform, opacity;
-             -moz-transition-property:    -moz-transform, opacity;
-              -ms-transition-property:     -ms-transform, opacity;
-               -o-transition-property:      -o-transform, opacity;
-                  transition-property:         transform, opacity;
-        }
+				.isotope {
+					-webkit-transition-property: height, width;
+					-moz-transition-property: height, width;
+					-ms-transition-property: height, width;
+					-o-transition-property: height, width;
+					transition-property: height, width;
+				}
 
-        /* 
-         * disabling Isotope CSS3 transitions 
-         */
+				.isotope .isotope-item {
+					-webkit-transition-property: -webkit-transform, opacity;
+					-moz-transition-property:    -moz-transform, opacity;
+					-ms-transition-property:     -ms-transform, opacity;
+					-o-transition-property:      -o-transform, opacity;
+					transition-property:         transform, opacity;
+				}
 
-        .isotope.no-transition,
-        .isotope.no-transition .isotope-item,
-        .isotope .isotope-item.no-transition {
-          -webkit-transition-duration: 0s;
-             -moz-transition-duration: 0s;
-              -ms-transition-duration: 0s;
-               -o-transition-duration: 0s;
-                  transition-duration: 0s;
-        }
-    </style>
-</head>
-<body>
-    <div id="button-container">
-        <div class="button-block">
-            <h4>Sort by</h4>
-            <ul id="sorter">
-                <li><a href="#" data-sorter="name">Name</a></li>
-                <li><a href="#" data-sorter="start_date">Start date</a></li>
-                <li><a href="#" data-sorter="end_date">End date</a></li>
-                <li><a href="#" data-sorter="amount">Amount</a></li>
-            </ul>
-        </div>
-        <div class="button-block">
-            <h4>Filter by</h4>
-            <ul id="filter">
-                <li><a href="#" data-filter="">All</a></li>
-                <li><a href="#" data-filter=".core">Core</a></li>
-                <li><a href="#" data-filter=".external">External</a></li>
-            </ul>
-        </div>
-        <div class="button-block">
-            <h4>Color by</h4>
-            <ul id="color">
-                <li><a href="#" data-color="">None</a></li>
-                <li><a href="#" data-color="amount">Amount</a></li>
-            </ul>
-        </div>
-    </div>
-    <div id="chart-canvas" style="width:100%;position:relative;float:left;">
-        <div id="svg-canvas" style="position:absolute;top:0;bottom:0;left:0;right:0;"></div>
-        <div id="gantt-bar-container" style="position:absolute;top:0;bottom:0;left:0;right:0;padding-top:30px;"></div>
+				/* 
+				 * disabling Isotope CSS3 transitions 
+				 */
 
-    </div>
+				 .isotope.no-transition,
+				 .isotope.no-transition .isotope-item,
+				 .isotope .isotope-item.no-transition {
+				 	-webkit-transition-duration: 0s;
+				 	-moz-transition-duration: 0s;
+				 	-ms-transition-duration: 0s;
+				 	-o-transition-duration: 0s;
+				 	transition-duration: 0s;
+				 }
+				</style>
+			</head>
+			<body>
+				<div id="button-container" class="row">
+					<header class="large-6 columns">
+						<h1><b>PiratePlotr 2014</b></h1>
+					</header>
 
-    <script>
-    (function(){
+					<hr>
+					<div class="button-block large-5 columns">
+						<h6>SORT BY</h6>
+						<ul id="sorter" class="button-group radius">
+							<li><a href="#" class="button tiny" data-sorter="name">Deliverable</a></li>
+							<li><a href="#" class="button tiny" data-sorter="start_date">Start date</a></li>
+							<li><a href="#" class="button tiny" data-sorter="end_date">End date</a></li>
+							<li><a href="#" class="button tiny" data-sorter="priority">Priority</a></li>
+						</ul>
+					</div>
+					<div class="button-block large-4 columns">
+						<h6>FILTER BY</h6>
+						<ul id="filter" class="button-group radius">
+							<li><a href="#" class="button tiny" data-filter="">All</a></li>
+							<li><a href="#" class="button tiny" data-filter=".core">Core</a></li>
+							<li><a href="#" class="button tiny" data-filter=".projects">Projects</a></li>
+							<li><a href="#" class="button tiny" data-filter=".brck">BRCK</a></li>
+						</ul>
+					</div>
+					<div class="button-block large-3 columns">
+						<h6>COLOR BY</h6>
+						<ul id="color" class="button-group radius">
+							<li><a href="#" class="button tiny" data-color="">Team</a></li>
+							<li><a href="#" class="button tiny" data-color="priority">Priority</a></li>
+						</ul>
+					</div>
+					<hr>
+				</div>
 
+				<div class="row">
+					<div class="large-12 columns">
+						<div id="chart-canvas" style="position:relative;">
+							<div id="svg-canvas" style="position:absolute;top:0;bottom:0;left:0;right:0;"></div>
+							<div id="gantt-bar-container" style="position:absolute;top:30;bottom:0;left:0;right:0;padding-top:30px;"></div>
+						</div>
+					</div>
+				</div>
 
-        var canvas_left_edge = $('#chart-canvas').offset().left;
-        var canvas_width = $('#chart-canvas').width();
-        var amountScale;
-    /*
-     * Load in data
-     */
-     // Data comes in as a simple updateable csv, so names entities, values can update
-     // Totes arbitrary values at this point, fix that
+				<script>
+					(function(){
+						var canvas_left_edge = $('#chart-canvas').offset().left;
+						var canvas_width = $('#chart-canvas').width();
+						var priorityScale;
+					/*
+					 * Load in data
+					 */
+					 // Data comes in as a simple updateable csv, so names entities, values can update
+					 // Totes arbitrary values at this point, fix that
 
-        d3.csv('data/sample_data.csv', function(data){
-            console.log(data)
+					 d3.csv('data/sample_data.csv', function(data){
+						console.log(data)
 
-            // Compute the height our canvas needs to be once we get the data
-            var number_of_bars = data.length
-            var bar_height = 20;
-            var bar_margin_bottom = 10;
-            var container_top_padding = 30;
-            var container_bottom_padding = 40;
-            var canvas_height = number_of_bars * (bar_height + bar_margin_bottom) + container_top_padding + container_bottom_padding;
+						// Compute the height our canvas needs to be once we get the data
+						var number_of_bars = data.length
+						var bar_height = 20;
+						var bar_margin_bottom = 10;
+						var container_top_padding = 30;
+						var container_bottom_padding = 40;
+						var canvas_height = number_of_bars * (bar_height + bar_margin_bottom) + container_top_padding + container_bottom_padding;
 
-            $('#chart-canvas').css('height',canvas_height)
-
-
-            function getDate(date) {
-                return new Date(date);
-            }
-
-            function accessStartDate(d) { return getDate(d['start_date']); }
-            function accessEndDate(d) { return getDate(d['end_date']); }
-
-            // Find min/max of our dates
-            var min = d3.min(data, accessStartDate);
-            var max = d3.max(data, accessEndDate);
-
-            var xScale = d3.time.scale()
-                .domain([min,max])
-                .range([125, canvas_width]);
-
-            // This creates an axis; it assigns the scale we made up above
-            var xAxis = d3.svg.axis()
-                .scale(xScale)
-                .orient("bottom");
-
-            // Create svg container
-            var svg = d3.select("#svg-canvas")
-                    .append("svg")
-                    .attr("width", canvas_width)
-                    .attr("height", canvas_height);
+						$('#chart-canvas').css('height',canvas_height)
 
 
-            // Bottom Axis
-            var btmAxis = svg.append("g")
-                .attr("transform", "translate(0,"+(canvas_height - 25)+")")
-                .attr("class", "axis")
-                .call(xAxis);
+						function getDate(date) {
+							return new Date(date);
+						}
 
-            // Top Axis
-            var topAxis = svg.append("g")
-                .attr("transform", "translate(0,0)")
-                .attr("class", "axis")
-                .call(xAxis);
+						function accessStartDate(d) { return getDate(d['start_date']); }
+						function accessEndDate(d) { return getDate(d['end_date']); }
 
-            // Lines
-            var line = svg.append("g")
-                .selectAll("line")
-                .data(xScale.ticks(10))
-              .enter().append("line")
-                .attr("x1", xScale)
-                .attr("x2", xScale)
-                .attr("y1", 30)
-                .attr("y2", canvas_height-50)
-                .style("stroke", "#ccc");
+						// Find min/max of our dates
+						var min = d3.min(data, accessStartDate);
+						var max = d3.max(data, accessEndDate);
 
-            $.each(data, function(index, value){
-                var start_pixels = xScale(getDate(value['start_date']))
-                var bar_width = xScale(getDate(value['end_date'])) - start_pixels
+						var xScale = d3.time.scale()
+						.domain([min,max])
+						.range([125, canvas_width]);
 
-                var new_bar = '<div class="bar-wrapper '+value['team']+'" data-name="'+value['name']+'" data-start_date="'+getDate(value['start_date']).getTime()+'" data-end_date="'+getDate(value['end_date']).getTime()+'" data-amount="'+value['amount']+'">\
-                    <div class="bar" style="margin-left:'+start_pixels+'px;width:'+bar_width+'px;">\
-                        <div class="bar-name">'+value['name']+'</div>\
-                    </div>\
-                </div>'
-                $('#gantt-bar-container').append(new_bar)
+						// This creates an axis; it assigns the scale we made up above
+						var xAxis = d3.svg.axis()
+						.scale(xScale)
+						.orient("bottom");
 
-            })
-
-            $container = $('#gantt-bar-container');
-            $container.isotope({
-              itemSelector : '.bar-wrapper',
-              getSortData : {
-                  name : function ( $elem ) {
-                      return $elem.attr('data-name')
-                  },
-                  start_date : function ( $elem ) {
-                      return parseInt($elem.attr('data-start_date'))
-                  },
-                  end_date : function ( $elem ) {
-                      return parseInt($elem.attr('data-end_date'))
-                  },
-                  amount: function ( $elem ) {
-                      return parseInt($elem.attr('data-amount'))
-                  }
-              }
-            });
-
-            var amount_extent = d3.extent(data, function(d){return Number(d['amount'])})
-
-            // Make the scale
-            amountScale = d3.scale.log()
-                .domain(amount_extent)
-                .range([0,5]);
+						// Create svg container
+						var svg = d3.select("#svg-canvas")
+						.append("svg")
+						.attr("width", canvas_width)
+						.attr("height", canvas_height);
 
 
-        });
+						// Bottom Axis
+						var btmAxis = svg.append("g")
+						.attr("transform", "translate(0,"+(canvas_height - 25)+")")
+						.attr("class", "axis")
+						.call(xAxis);
 
-        // Sorting buttons
-        // So let's make a simple sort_ascending boolean variable and set it to true
-        var sort_ascending = true;
+						// Top Axis
+						var topAxis = svg.append("g")
+						.attr("transform", "translate(0,0)")
+						.attr("class", "axis")
+						.call(xAxis);
 
-        $('#sorter li a').click(function(){
-            // Set it to what it isn't, if it was true, make it false and vice versa
-            // So, when you click a button twice, it will flop its sort order
-            // a simple toggle
-            sort_ascending = !sort_ascending
+						// Lines
+						var line = svg.append("g")
+						.selectAll("line")
+						.data(xScale.ticks(10))
+						.enter().append("line")
+						.attr("x1", xScale)
+						.attr("x2", xScale)
+						.attr("y1", 30)
+						.attr("y2", canvas_height-50)
+						.style("stroke", "#ccc");
 
-            var sorter_selector = $(this).attr('data-sorter');
-            // When we update the isotope layout, it has a property called sortAscending that will then get our value
-            $('#gantt-bar-container').isotope({ sortBy : sorter_selector, sortAscending: sort_ascending }); 
-            // It could also use hover boxes, but i've done that, simple matter of adding other jquery things. What we'll want to do is create a .mouseover() jquery listener on the chart canvas that will update the x and y position of a hover window that you create (and that will be set default to display:none). On mouseover of our .bar-wrapper should show our hover window and it should eyedrop the data attributes that assigned to that element, on mouseout it should hide the box.
+						$.each(data, function(index, value){
+							var start_pixels = xScale(getDate(value['start_date']))
+							var bar_width = xScale(getDate(value['end_date'])) - start_pixels
 
-            // http://www.qwantz.com/index.php?comic=2369
-        });
+							var new_bar = '<div class="bar-wrapper '+value['where']+'" data-name="'+value['name']+'" data-start_date="'+getDate(value['start_date']).getTime()+'" data-end_date="'+getDate(value['end_date']).getTime()+'" data-priority="'+value['priority']+'">\
+							<div class="bar" style="margin-left:'+start_pixels+'px;width:'+bar_width+'px;">\
+								<div class="bar-name">'+value['deliverable']+'</div>\
+							</div>\
+						</div>'
+						$('#gantt-bar-container').append(new_bar)
 
-        // Filter buttons
-        $('#filter li a').click(function(){
-          var filter_selector = $(this).attr('data-filter');
-          $('#gantt-bar-container').isotope({ filter: filter_selector });
-          return false;
-        });
+					})
 
-        var REDS = ["#ffffb2","#fed976","#feb24c","#fd8d3c","#f03b20","#bd0026"]
+						$container = $('#gantt-bar-container');
+						$container.isotope({
+							itemSelector : '.bar-wrapper',
+							getSortData : {
+								deliverable : function ( $elem ) {
+									return $elem.attr('data-name')
+								},
+								start_date : function ( $elem ) {
+									return parseInt($elem.attr('data-start_date'))
+								},
+								end_date : function ( $elem ) {
+									return parseInt($elem.attr('data-end_date'))
+								},
+								priority: function ( $elem ) {
+									return parseInt($elem.attr('data-priority'))
+								}
+							}
+						});
 
-        // Color buttons
-        $('#color li a').click(function(){
-          var color_selector = $(this).attr('data-color');
-          // Get all the bars
-          var $bar_wrappers = $('.bar-wrapper');
+						var priority_extent = d3.extent(data, function(d){return Number(d['priority'])})
 
-          if (color_selector == 'amount'){
-            $.each($bar_wrappers, function(index, bar_wrapper){
-                // Find each div's data amount
-                var this_amount = $(bar_wrapper).attr('data-amount')
-                // Run this through our color scale
-                var new_color_at_index = Math.floor(amountScale(this_amount))
-                $(bar_wrapper).find('.bar').css({'background-color':REDS[new_color_at_index]})
+						// Make the scale
+						priorityScale = d3.scale.log()
+						.domain(priority_extent)
+						.range([0,5]);
 
-            });
-          }else{
-            $.each($bar_wrappers, function(index, bar_wrapper){
-                // Reset to the default background color
-                $(bar_wrapper).find('.bar').css({'background-color':''})
-            });
-          }
 
-        });
+					});
 
-    }).call(this)
-    </script>
+				// Sorting buttons
+				// So let's make a simple sort_ascending boolean variable and set it to true
+				var sort_ascending = true;
+
+				$('#sorter li a').click(function(){
+						// Set it to what it isn't, if it was true, make it false and vice versa
+						// So, when you click a button twice, it will flop its sort order
+						// a simple toggle
+						sort_ascending = !sort_ascending
+
+						var sorter_selector = $(this).attr('data-sorter');
+						// When we update the isotope layout, it has a property called sortAscending that will then get our value
+						$('#gantt-bar-container').isotope({ sortBy : sorter_selector, sortAscending: sort_ascending }); 
+						// It could also use hover boxes, but i've done that, simple matter of adding other jquery things. What we'll want to do is create a .mouseover() jquery listener on the chart canvas that will update the x and y position of a hover window that you create (and that will be set default to display:none). On mouseover of our .bar-wrapper should show our hover window and it should eyedrop the data attributes that assigned to that element, on mouseout it should hide the box.
+
+						// http://www.qwantz.com/index.php?comic=2369
+					});
+
+				// Filter buttons
+				$('#filter li a').click(function(){
+					var filter_selector = $(this).attr('data-filter');
+					$('#gantt-bar-container').isotope({ filter: filter_selector });
+					return false;
+				});
+
+				var REDS = ["#ffffb2","#fed976","#feb24c","#fd8d3c","#f03b20","#bd0026"]
+
+				// Color buttons
+				$('#color li a').click(function(){
+					var color_selector = $(this).attr('data-color');
+					// Get all the bars
+					var $bar_wrappers = $('.bar-wrapper');
+
+					if (color_selector == 'priority'){
+						$.each($bar_wrappers, function(index, bar_wrapper){
+								// Find each div's data priority
+								var this_priority = $(bar_wrapper).attr('data-priority')
+								// Run this through our color scale
+								var new_color_at_index = Math.floor(priorityScale(this_priority))
+								$(bar_wrapper).find('.bar').css({'background-color':REDS[new_color_at_index]})
+
+							});
+					}else{
+						$.each($bar_wrappers, function(index, bar_wrapper){
+								// Reset to the default background color
+								$(bar_wrapper).find('.bar').css({'background-color':''})
+							});
+					}
+
+				});
+
+			}).call(this)
+</script>
 </body>
 </html>
 <!--special thx to mhkeller (homg dates in d3), and to aubergene (D3.edu)-->
