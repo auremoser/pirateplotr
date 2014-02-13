@@ -110,7 +110,7 @@
 			// Place mouse move on bar-container so the tooltip renders over the bars but sets to the xy of the bar it tips
 		        console.log('mousemove');
 		        var xy = d3.mouse(this)
-			    //Update Tooltip Position & value
+			// Update Tooltip Position & value
 			    tooltip
 			        .style("left", xy[0] + "px")
 			        .style("top", xy[1] + "px")
@@ -133,40 +133,21 @@
 			.attr('data-priority', function(d) { return d.priority })
 			.attr('data-team', function(d) { return d.team })
 			.on("mouseover", function (d, i) {
-				// this.appendChild(tooltip.node())
-			    tooltip
-			        .select("#cpcVal")
-			        .text(d.cpc);
+			    var tt = ''
+				tt += '<p class="heading"><span id="keyword">'+d.team+'</span></p>'
+				tt += '<p class="indent"><span id="bar-data">'+d.deliverable+'</span></p>'
+				tt += '<p class="indent"><span id="cpcVal">'+dateFormat(d.start_date) + ' - '+dateFormat(d.end_date)+'</span></p>'
 
 			    tooltip
-			        .select("#volVal")
-			        .text(d.deliverable);
-
-			    tooltip
-			        .select("#keyword")
-			        .style("color", d3.select(this).style("fill"))
-			        .text(d.team);
+			        .style("border-left", '3px solid ' + teamColorScale(d.team))
+			        .html(tt);
 			    
 			    tooltip.style("display", 'block');
 			})
 			.on("mouseout", function (d, i) {
 			    tooltip.style("display", 'none');
 			})
-			// .on("mousemove", function (d, i) {
-		 //        console.log('mousemove');
-		 //        // console.log(d3.mouse(this));
-		 //        var xy = d3.mouse(this)
 
-			//     //Get this bar's x/y values, then augment for the tooltip
-			//     // var p = transformEventCoordsToNodeCoords(window.event, this);
-			//    var xPosition = d3.event.x;
-			//     var yPosition = d3.event.y;
-			//     console.log($(this))
-			//     //Update Tooltip Position & value
-			//     tooltip
-			//         .style("left", xy[0] + "px")
-			//         .style("top", xy[1] + "px")
-			// })
 			// end vicious hacks :'(
 
 		// TODO set the top offset to replace isotope
