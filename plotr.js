@@ -105,6 +105,18 @@
 		// Rewrote bar_wrapper and new bar draw + value['somedate header type'] because it was long and confusing
 
 		var ganttBarContainer = d3.select('#gantt-bar-container')
+
+			.on("mousemove", function (d, i) {
+			// Place mouse move on bar-container so the tooltip renders over the bars but sets to the xy of the bar it tips
+		        console.log('mousemove');
+		        var xy = d3.mouse(this)
+			    //Update Tooltip Position & value
+			    tooltip
+			        .style("left", xy[0] + "px")
+			        .style("top", xy[1] + "px")
+			})
+
+
 		var barWrappers = ganttBarContainer.selectAll('.bar-wrapper')
 			.data(data)
 
@@ -121,6 +133,7 @@
 			.attr('data-priority', function(d) { return d.priority })
 			.attr('data-team', function(d) { return d.team })
 			.on("mouseover", function (d, i) {
+				// this.appendChild(tooltip.node())
 			    tooltip
 			        .select("#cpcVal")
 			        .text(d.cpc);
@@ -139,21 +152,21 @@
 			.on("mouseout", function (d, i) {
 			    tooltip.style("display", 'none');
 			})
-			.on("mousemove", function (d, i) {
-		        console.log('mousemove');
-		        // console.log(d3.mouse(this));
-		        var xy = d3.mouse(this)
+			// .on("mousemove", function (d, i) {
+		 //        console.log('mousemove');
+		 //        // console.log(d3.mouse(this));
+		 //        var xy = d3.mouse(this)
 
-			    //Get this bar's x/y values, then augment for the tooltip
-			    // var p = transformEventCoordsToNodeCoords(window.event, this);
-			   var xPosition = d3.event.x;
-			    var yPosition = d3.event.y;
-			    console.log($(this))
-			    //Update Tooltip Position & value
-			    tooltip
-			        .style("left", xy[0] + "px")
-			        .style("top", xy[1] + "px")
-			})
+			//     //Get this bar's x/y values, then augment for the tooltip
+			//     // var p = transformEventCoordsToNodeCoords(window.event, this);
+			//    var xPosition = d3.event.x;
+			//     var yPosition = d3.event.y;
+			//     console.log($(this))
+			//     //Update Tooltip Position & value
+			//     tooltip
+			//         .style("left", xy[0] + "px")
+			//         .style("top", xy[1] + "px")
+			// })
 			// end vicious hacks :'(
 
 		// TODO set the top offset to replace isotope
