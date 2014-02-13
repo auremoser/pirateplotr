@@ -108,6 +108,8 @@
 		var barWrappers = ganttBarContainer.selectAll('.bar-wrapper')
 			.data(data)
 
+		var tooltip = d3.select("#tooltip")
+
 		barWrappers
 			.enter()
 			.append('div')
@@ -119,29 +121,39 @@
 			.attr('data-priority', function(d) { return d.priority })
 			.attr('data-team', function(d) { return d.team })
 			.on("mouseover", function (d, i) {
-				        console.log(d3.select(this));
-				        console.log(d3.mouse(this));
-				        d3.mouse(this)
-				    //Get this bar's x/y values, then augment for the tooltip
-				    // var p = transformEventCoordsToNodeCoords(window.event, this);
-				   var xPosition = d3.event.x;
-				    var yPosition = d3.event.y;
-				    console.log($(this))
-				    //Update Tooltip Position & value
-				    d3.select("#tooltip")
-				        .style("left", xPosition + "px")
-				        .style("top", yPosition + "px")
-				        .select("#cpcVal")
-				        .text(d.cpc);
-				    d3.select("#tooltip")
-				        .select("#volVal")
-				        .text(d.deliverable);
-				    d3.select("#tooltip")
-				        .select("#keyword")
-				        .style("color", d3.select(this).style("fill"))
-				        .text(d.team);
-				    d3.select("#tooltip").classed("hidden", false);
-				})
+			    tooltip
+			        .select("#cpcVal")
+			        .text(d.cpc);
+
+			    tooltip
+			        .select("#volVal")
+			        .text(d.deliverable);
+
+			    tooltip
+			        .select("#keyword")
+			        .style("color", d3.select(this).style("fill"))
+			        .text(d.team);
+			    
+			    tooltip.style("display", 'block');
+			})
+			.on("mouseout", function (d, i) {
+			    tooltip.style("display", 'none');
+			})
+			.on("mousemove", function (d, i) {
+		        console.log('mousemove');
+		        // console.log(d3.mouse(this));
+		        var xy = d3.mouse(this)
+
+			    //Get this bar's x/y values, then augment for the tooltip
+			    // var p = transformEventCoordsToNodeCoords(window.event, this);
+			   var xPosition = d3.event.x;
+			    var yPosition = d3.event.y;
+			    console.log($(this))
+			    //Update Tooltip Position & value
+			    tooltip
+			        .style("left", xy[0] + "px")
+			        .style("top", xy[1] + "px")
+			})
 			// end vicious hacks :'(
 
 		// TODO set the top offset to replace isotope
