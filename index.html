@@ -94,23 +94,23 @@
 			position: fixed;
 			top: 75px;
 			right: 0px; 
-			padding: 0px;
+			padding: 5px;
 			z-index:9999999;
 		}
-		.legend .legend-title {
+		.legend-style .legend-title {
 			text-align:left;
 			margin-bottom: 8px;
 			font-family: "Proxima Nova",Helvetica,Arial,sans-serif !important;
 			font-weight: bold;
 			font-size: 90%;
 		}
-		.legend .legend-scale ul {
+		.legend-style .legend-scale ul {
 			margin: 0;
 			padding: 0;
 			float: left;
 			list-style: none;
 		} 
-		.legend .legend-scale ul li {
+		.legend-style .legend-scale ul li {
 			display: block;
 			float: left;
 			width: 50px;
@@ -119,17 +119,15 @@
 			font-size: 75%;
 			list-style: none;
 		}
-		.legend ul.legend-labels li span {
+		.legend-style ul.legend-labels li span {
 			display: block;
 			float: left;
 			height: 15px;
 			width: 50px;
 		}
-		.legend a {
+		.legend-style a {
 			color: #777;
 		}
-
-
 		#tooltip {
 		    display: none;
 		    position: absolute;
@@ -159,13 +157,13 @@
 			font-size: 12px;
 			color: #fff;
 		}
-				</style>
+	</style>
 </head>
 	<body>
 		<div id="button-container" class="row">
 			<!-- TITLE BAR -->
-			<header class="large-6 columns">
-				<h2><b>Pirate Plotr 2014</b></h2>
+			<header class="large-6 columns hide-for-small-only">
+				<h2><b>PIRATE PLOTR 2014</b></h2>
 			</header>
 			<hr>
 			<!-- SORTER/FILTER/COLOR BUTTONS -->
@@ -195,10 +193,10 @@
 					<li class="button tiny alert" data-color="team">Team</li>
 				</ul>
 			</div>
-			<hr>
+		<hr>
 		</div>
 		<!-- LEGEND - PRIORITY -->
-		<div id="legend" class="legend">
+		<div id="legend" class="legend-style">
 			<div class="legend-title">Priority Scale</div>
 			<div class="legend-scale">
 				<ul class="legend-labels">
@@ -212,7 +210,7 @@
 			</div>
 		</div>
 		<!-- LEGEND - TEAM -->
-		<div id="legend-2" class="legend">
+		<div id="legend-2" class="legend-style">
 		<div class="legend-title">Teams 2014</div>
 			<div class="legend-scale">
 				<ul class="legend-labels">
@@ -229,7 +227,7 @@
 		</div>
 		<div class="row">
 			<div class="large-12 columns">
-				<div id="chart-canvas" style="position:relative;">
+				<div id="chart-canvas" style="position:relative">
 					<div id="svg-canvas"></div>
 					<div id="gantt-bar-container"></div>
 				</div>

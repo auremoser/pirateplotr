@@ -21,12 +21,12 @@
 
 	var number_of_bars, canvas_height;
 
-	 // Compute the height our canvas needs to be once we get the data
+	// Compute the height our canvas needs to be once we get the data
 	var bar_height = 20;
 	var bar_margin_bottom = 10;
 	var container_top_padding = 30;
 	var container_bottom_padding = 40;
-
+	// Declare color/filter vars
 	var color_selector, filter_selector;
 
 	var today = new Date();
@@ -35,7 +35,7 @@
 
 
 	/*
-	 * Load in data
+	 * LOAD AND TIDY DATA
 	 */
 	 // Data comes in as a simple updateable csv, so names entities, values can update
 	 // Totes arbitrary values at this point for "priority", fix that
@@ -75,7 +75,9 @@
 
 		console.log(data);
 	}
-
+	/*
+	 * DRAW WITH DATA
+	 */
 
 	function initialRender() {
 		// Create svg container
@@ -122,6 +124,15 @@
 			.attr('y2', canvas_height - 25)
 			.style('stroke', '#c00');
 
+		// var milestones = svg.append('line')
+		//  	.data('milestones', function(d){ return d.milestones})
+		// 	.attr('x1', xScale)
+		// 	.attr('x2', xScale)
+		// 	.attr('y1', 0)
+		// 	.attr('y2', canvas_height - 25)
+		// 	.style('stroke', '#c00');
+
+
 
 		d3.select('#chart-canvas').style('height', canvas_height + 'px');
 
@@ -141,8 +152,17 @@
 			.text('Today')
 			.attr('class', 'todaymarker')
 			.style('position', 'absolute')
+			.style('top', '-30px')
+			.style('left', function(d) { return xScale(d) + 'px' })
+			
+
+		ganttBarContainer.append('div')
+			.data(milestones)
+			.text('Beta')
+			.attr('class', 'milestone')
+			.style('position', 'absolute')
 			.style('top', '0px')
-			.style('left', function(d) { return xScale(d) + 'px' });
+			.style('left', function(d) { return xScale(d) + 'px'});
 	}
 
 	var tooltip = d3.select('#tooltip');
@@ -198,7 +218,7 @@
 				}
 			});
 
-
+		// Set transitions to replace isotope
 		barWrappers
 			.transition()
 			.duration(600)
@@ -219,15 +239,14 @@
 
 	}
 
-	// Sorting buttons
+	// SORTING BUTTONS
 	// So let's make a simple sort_ascending boolean variable and set it to true
 	var sort_ascending = true;
 
-	// Use d3 for events
 	d3.selectAll('#sorter li')
 		.on('click', function() {
 		// Set it to what it isn't, if it was true, make it false and vice versa
-		// So, when you click a button twice, it will flop its sort order; a simple toggle
+		// When you click a button twice, it will flop its sort order; a simple toggle
 		sort_ascending = !sort_ascending;
 		var sorter_selector = d3.select(this).attr('data-sorter');
 		console.log('SORT:', sorter_selector);
@@ -239,23 +258,24 @@
 				return d3.descending(a[sorter_selector], b[sorter_selector]);
 			}
 		});
-		// console.log(JSON.stringify(data.slice(0,5)))
 		render();
 	});
 
-	// TODO use d3 for events
-	// Filter buttons
+	// FILTER BUTTONS
 	d3.selectAll('#filter li').on('click', function() {
 		filter_selector = d3.select(this).attr('data-filter');
 		render();
 	});
 
-	// Color buttons
+	// COLOR BUTTONS
 	d3.selectAll('#color li').on('click', function() {
 		color_selector = d3.select(this).attr('data-color');
 		render(data);
 	});
 
+	/*
+	 * cALL THE THINGS
+	 */
 	d3.csv('data/sample_data.csv', function(csv) {
 		tidyData(csv);
 		initialRender();
