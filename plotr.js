@@ -17,7 +17,7 @@
 		.rangeRound([125, canvas_width]);
 
 
-	var data, bars;
+	var data = [], milestones = [];
 
 	var number_of_bars, canvas_height;
 
@@ -44,16 +44,21 @@
 	var dateFormat = d3.time.format('%m/%d/%y');
 
 	function tidyData(csv) {
-		// console.log(data)
-		data = csv;
-		console.log('Handle data');
 		// Tidy all the data in to the correct types as CSV gives everything as a string
-		data.forEach(function(d, i) {
-			d.id = i;
-			d.start_date = dateFormat.parse(d.start_date);
-			d.end_date = dateFormat.parse(d.end_date);
-			d.priority = parseInt(d.priority);
+		csv.forEach(function(d, i) {
+			if (d['type'] === 'milestone') {
+				milestones.push(d);
+			} else {
+				d.id = i;
+				d.start_date = dateFormat.parse(d.start_date);
+				d.end_date = dateFormat.parse(d.end_date);
+				d.priority = parseInt(d.priority);
+				data.push(d);
+			}
 		});
+
+		console.log(milestones);
+
 		// Set priority extent and scaling for whatever amount you want to prioritize (resources, counts, downloads, anything numeric)
 		var priority_extent = d3.extent(data, function(d) {return d.priority});
 		console.log(priority_extent);
@@ -172,7 +177,7 @@
 				tooltip.style('display', 'none');
 			});
 
-		bars = bwe
+		var bars = bwe
 			.append('div')
 				.attr('class', 'bar')
 				.style('margin-left', function(d, i) { return xScale(d.start_date) + 'px' })
