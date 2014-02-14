@@ -7,6 +7,7 @@
 
 	var teamColorScale = d3.scale.ordinal()
 		.domain(['BRCK', 'CrisisNet', 'Crowdmap', 'External Projects', 'MAVC', 'Operations', 'RRI', 'V3'])
+		//.range(['#e45f56',' #d75c37','#fff568','#a3d39c','#4aaaa5','#4aaaa5','#334455','#260126'])
 		.range(['#d53e4f', '#f46d43', '#fdae61', '#fee08b', '#ffffbf', '#abdda4', '#66c2a5', '#3288bd']);
 
 	var priorityScale = d3.scale.linear()
@@ -30,8 +31,8 @@
 
 	 d3.csv('data/sample_data.csv', function(csv) {
 		// console.log(data)
-		data = csv
-		console.log("Handle data");
+		data = csv;
+		console.log('Handle data');
 		// Tidy all the data in to the correct types as CSV gives everything as a string
 		data.forEach(function(d) {
 			d.start_date = dateFormat.parse(d.start_date);
@@ -40,8 +41,8 @@
 		});
 		// Set priority extent and scaling for whatever amount you want to prioritize (resources, counts, downloads, anything numeric)
 		var priority_extent = d3.extent(data, function(d) {return d.priority});
-		console.log(priority_extent)
-		priorityScale.domain([-50,50]);
+		console.log(priority_extent);
+		priorityScale.domain([-50, 50]);
 
 		// Find min/max of our dates
 		var min = d3.min(data, function(d) { return d.start_date });
@@ -51,7 +52,7 @@
 
 		console.log(data);
 		render();
-	})
+	});
 
 
 	function render() {
@@ -81,13 +82,13 @@
 
 		// Bottom Axis
 		var btmAxis = svg.append('g')
-		.attr('transform', 'translate(0,'+ (canvas_height - 30) + ')')
+		.attr('transform', 'translate(0,' + (canvas_height - 30) + ')')
 		.attr('class', 'axis')
 		.call(xAxis);
 
 		// Top Axis
 		var topAxis = svg.append('g')
-		.attr('transform', 'translate(0,0)')
+		.attr('transform', 'translate(0,10)')
 		.attr('class', 'axis')
 		.call(xAxis);
 
@@ -102,60 +103,79 @@
 		.attr('y2', canvas_height - 25)
 		.style('stroke', '#ccc');
 
+
+		var today = new Date();
+
+		var todayline = svg.append('line')
+		.datum(today)
+		// .datum(new Date(2014,1,14))
+		.attr('x1', xScale)
+		.attr('x2', xScale)
+		.attr('y1', 0)
+		.attr('y2', canvas_height - 25)
+		.style('stroke', '#c00');
+
 		// Rewrote bar_wrapper and new bar draw + value['somedate header type'] because it was long and confusing
 
 		var ganttBarContainer = d3.select('#gantt-bar-container')
-
-			.on("mousemove", function (d, i) {
+			.on('mousemove', function(d, i) {
 			// Place mouse move on bar-container so the tooltip renders over the bars but sets to the xy of the bar it tips
 		        console.log('mousemove');
-		        var xy = d3.mouse(this)
+		        var xy = d3.mouse(this);
 			// Update Tooltip Position & value
 			    tooltip
-			        .style("left", xy[0] + "px")
-			        .style("top", xy[1] + "px")
-			})
+			        .style('left', xy[0] + 'px')
+			        .style('top', xy[1] + 'px');
+			});
 
+		ganttBarContainer.append('div')
+		.datum(today)
+		.text('Today')
+		.attr('class', 'todaymarker')
+		.style('position', 'absolute')
+		.style('top', '0px')
+		.style('left', function(d) { return xScale(d) + 'px' });
 
 		var barWrappers = ganttBarContainer.selectAll('.bar-wrapper')
-			.data(data)
+			.data(data);
 
-		var tooltip = d3.select("#tooltip")
+		var tooltip = d3.select('#tooltip');
 
 		barWrappers
 			.enter()
 			.append('div')
 			.attr('class', function(d) { return 'bar-wrapper ' + d.type })
 			// begin vicious hacks
-			.attr('data-name', function(d) { return d.deliverable  })
+			.attr('data-name', function(d) { return d.deliverable })
 			.attr('data-start_date', function(d) { return d.start_date.getTime() })
 			.attr('data-end_date', function(d) { return d.end_date.getTime() })
 			.attr('data-priority', function(d) { return d.priority })
 			.attr('data-team', function(d) { return d.team })
-			.on("mouseover", function (d, i) {
-			    var tt = ''
-				tt += '<p class="heading"><span id="keyword">'+d.team+'</span></p>'
-				tt += '<p class="indent"><span id="bar-data">'+d.deliverable+'</span></p>'
-				tt += '<p class="indent"><span id="cpcVal">'+dateFormat(d.start_date) + ' - '+dateFormat(d.end_date)+'</span></p>'
+			// Add tooltip mouseovers here
+			.on('mouseover', function(d, i) {
+			    var tt = '';
+				tt += '<p class="heading"><span id="keyword">' + d.team + '</span></p>';
+				tt += '<p class="indent"><span id="bar-data">' + d.deliverable + '</span></p>';
+				tt += '<p class="indent"><span id="cpcVal">' + dateFormat(d.start_date) + ' - ' + dateFormat(d.end_date) + '</span></p>';
 
 			    tooltip
-			        .style("border-left", '3px solid ' + teamColorScale(d.team))
+			        .style('border-left', '3px solid ' + teamColorScale(d.team))
 			        .html(tt);
-			    
-			    tooltip.style("display", 'block');
+
+			    tooltip.style('display', 'block');
 			})
-			.on("mouseout", function (d, i) {
-			    tooltip.style("display", 'none');
-			})
+			.on('mouseout', function(d, i) {
+			    tooltip.style('display', 'none');
+			});
 
 			// end vicious hacks :'(
 
 		// TODO set the top offset to replace isotope
 		// barWrappers
-		// 	.style('top', function(d) { 
-		// 		// return sometihng based on filter 
+		// 	.style('top', function(d) {
+		// 		// return sometihng based on filter
 		// 	})
-		function transformEventCoordsToNodeCoords(evt,node)
+		function transformEventCoordsToNodeCoords(evt, node)
 		{
 		  var point = document.documentElement.createSVGPoint();
 		  point.x = evt.clientX;
@@ -168,14 +188,15 @@
 		bars = barWrappers
 			.append('div')
 				.attr('class', 'bar')
-				.style('margin-left', function(d,i) { return xScale(d.start_date) + 'px' })
-				.style('width', function(d,i) { return xScale(d.end_date) - xScale(d.start_date) + 'px' })
+				.style('margin-left', function(d, i) { return xScale(d.start_date) + 'px' })
+				.style('width', function(d, i) { return xScale(d.end_date) - xScale(d.start_date) + 'px' });
 
 
-		bars	
+		bars
 			.append('div')
 				.attr('class', 'bar-name')
-				.text(function(d) { return /*d.priority + ' ' +*/ d.deliverable })
+				.text(function(d) { return d.deliverable });
+
 
 		var $container = $('#gantt-bar-container');
 
@@ -209,10 +230,10 @@
 		// So, when you click a button twice, it will flop its sort order; a simple toggle
 		sort_ascending = !sort_ascending;
 		var sorter_selector = $(this).attr('data-sorter');
-		console.log("SORT:", sorter_selector);
+		console.log('SORT:', sorter_selector);
 		// When we update the isotope layout, it has a property called sortAscending that will then get our value
 		$('#gantt-bar-container').isotope({ sortBy: sorter_selector, sortAscending: sort_ascending });
-		
+
 		// TODO hovers/tooltips on each bar, to show what team, start/end dates, filter type, priority value, for clarity
 		// It could also use hover boxes, but i've done that, simple matter of adding other jquery things. What we'll want to do is create a .mouseover() jquery listener on the chart canvas that will update the x and y position of a hover window that we create (and that will be set default to display:none). On mouseover of our .bar-wrapper should show our hover window and it should eyedrop the data attributes that assigned to that element, on mouseout it should hide the box.
 	});
@@ -221,7 +242,7 @@
 	// Filter buttons
 	$('#filter li a').click(function() {
 		var filter_selector = $(this).attr('data-filter');
-		console.log(filter_selector)
+		console.log(filter_selector);
 		$('#gantt-bar-container').isotope({ filter: filter_selector });
 		return false;
 	});
@@ -236,11 +257,11 @@
 		// Replaced jquery bar_wrapper stuff with D3 from previous version, for those keeping track
 		// Shorter code block, whoot
 		if (color_selector == 'priority') {
-		 	bars.style('background-color', function(d) { return priorityScale(d.priority); })
+		 	bars.style('background-color', function(d) { return priorityScale(d.priority); });
 		}else if (color_selector == 'team') {
-		 	bars.style('background-color', function(d) { return teamColorScale(d.team);})
+		 	bars.style('background-color', function(d) { return teamColorScale(d.team);});
 		}else {
-		 	bars.style('background-color', '')
+		 	bars.style('background-color', '');
 
 		}
 
