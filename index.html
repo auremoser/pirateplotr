@@ -2,9 +2,7 @@
 <html>
 <head>
 	<title>2014 Ushahidi Project Tracker</title>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="libs/d3.v3.min.js"></script>
-	<script src="libs/jquery.isotope.min.js"></script>
 	<link rel="stylesheet" href="assets/normalize.css">
 	<link rel="stylesheet" href="assets/foundation.min.css">
 	<meta charset="utf-8">
@@ -40,7 +38,7 @@
 		}
 		.bar-wrapper {
 			width: 100%;
-			position: relative;
+			position: absolute;
 		}
 		.bar-wrapper:hover .bar {
 			opacity: .75;
@@ -62,6 +60,25 @@
 		.bar-name:hover {
 			cursor: default;
 		}
+
+		#svg-canvas {
+			position:absolute;
+			top:0;
+			bottom:0;
+			left:0;
+			right:0;
+		}
+
+		#gantt-bar-container {
+			position:absolute;
+			top:30px;
+			bottom:0;
+			left:0;
+			right:0;
+			padding-top:30px
+		}
+
+
 		#legend {
 			width: 325px;
 			position: fixed;
@@ -112,61 +129,6 @@
 			color: #777;
 		}
 
-		/* Isotope requires a ton of custom styles you can copy and paste from here */
-		/* http://isotope.metafizzy.co/docs/introduction.html */
-		/**** Isotope Filtering ****/
-
-		.isotope-item {
-			z-index: 2;
-		}
-
-		.isotope-hidden.isotope-item {
-			pointer-events: none;
-			z-index: 1;
-		}
-
-				/*
-				*Isotope CSS3 transitions 
-				*/
-
-				.isotope,
-				.isotope .isotope-item {
-					-webkit-transition-duration: 0.4s;
-					-moz-transition-duration: 0.4s;
-					-ms-transition-duration: 0.4s;
-					-o-transition-duration: 0.4s;
-					transition-duration: 0.4s;
-				}
-
-				.isotope {
-					-webkit-transition-property: height, width;
-					-moz-transition-property: height, width;
-					-ms-transition-property: height, width;
-					-o-transition-property: height, width;
-					transition-property: height, width;
-				}
-
-				.isotope .isotope-item {
-					-webkit-transition-property: -webkit-transform, opacity;
-					-moz-transition-property:    -moz-transform, opacity;
-					-ms-transition-property:     -ms-transform, opacity;
-					-o-transition-property:      -o-transform, opacity;
-					transition-property:         transform, opacity;
-				}
-
-				/* 
-				 * disabling Isotope CSS3 transitions 
-				 */
-
-				 .isotope.no-transition,
-				 .isotope.no-transition .isotope-item,
-				 .isotope .isotope-item.no-transition {
-				 	-webkit-transition-duration: 0s;
-				 	-moz-transition-duration: 0s;
-				 	-ms-transition-duration: 0s;
-				 	-o-transition-duration: 0s;
-				 	transition-duration: 0s;
-				 }
 
 		#tooltip {
 		    display: none;
@@ -210,27 +172,27 @@
 			<div class="button-block large-5 columns">
 				<h6>SORT BY</h6>
 				<ul id="sorter" class="button-group radius">
-					<li><a href="#" class="button tiny alert" data-sorter="deliverable">Deliverable</a></li>
-					<li><a href="#" class="button tiny alert" data-sorter="start_date">Start date</a></li>
-					<li><a href="#" class="button tiny alert" data-sorter="end_date">End date</a></li>
-					<li><a href="#" class="button tiny alert" data-sorter="priority">Priority</a></li>
+					<li class="button tiny alert" data-sorter="deliverable">Deliverable</li>
+					<li class="button tiny alert" data-sorter="start_date">Start date</li>
+					<li class="button tiny alert" data-sorter="end_date">End date</li>
+					<li class="button tiny alert" data-sorter="priority">Priority</li>
 				</ul>
 			</div>
 			<div class="button-block large-4 columns">
 				<h6>FILTER BY</h6>
 				<ul id="filter" class="button-group radius">
-					<li><a href="#" class="button tiny alert" data-filter="">All</a></li>
-					<li><a href="#" class="button tiny alert" data-filter=".core">Core</a></li>
-					<li><a href="#" class="button tiny alert" data-filter=".external">External</a></li>
-					<li><a href="#" class="button tiny alert" data-filter=".ops">Ops</a></li>
+					<li class="button tiny alert" data-filter="">All</li>
+					<li class="button tiny alert" data-filter="core">Core</li>
+					<li class="button tiny alert" data-filter="external">External</li>
+					<li class="button tiny alert" data-filter="ops">Ops</li>
 				</ul>
 			</div>
 			<div class="button-block large-3 columns">
 				<h6>COLOR BY</h6>
 				<ul id="color" class="button-group radius">
-					<li><a href="#" class="button tiny alert" data-color="all">All</a></li>
-					<li><a href="#" class="button tiny alert" data-color="priority">Priority</a></li>
-					<li><a href="#" class="button tiny alert" data-color="team">Team</a></li>
+					<li class="button tiny alert" data-color="all">All</li>
+					<li class="button tiny alert" data-color="priority">Priority</li>
+					<li class="button tiny alert" data-color="team">Team</li>
 				</ul>
 			</div>
 			<hr>
@@ -268,8 +230,8 @@
 		<div class="row">
 			<div class="large-12 columns">
 				<div id="chart-canvas" style="position:relative;">
-					<div id="svg-canvas" style="position:absolute;top:0;bottom:0;left:0;right:0;"></div>
-					<div id="gantt-bar-container" style="position:absolute;top:30;bottom:0;left:0;right:0;padding-top:30px;"></div>
+					<div id="svg-canvas"></div>
+					<div id="gantt-bar-container"></div>
 				</div>
 
 				<!-- TOOLTIPS -->
@@ -277,17 +239,7 @@
 
 			</div>
 		</div>
-		<div class="row">
-			<div class="large-12 columns">
-				<div id="chart-canvas" style="position:relative;">
-					<div id="svg-canvas" style="position:absolute;top:0;bottom:0;left:0;right:0;"></div>
-					<div id="gantt-bar-container" style="position:absolute;top:30;bottom:0;left:0;right:0;padding-top:30px;"></div>
-				</div>
-			</div>
-		</div>
 
-
-		<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 		<script src="plotr.js"></script>
 	</body>
 </html>
