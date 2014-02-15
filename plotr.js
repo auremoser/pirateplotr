@@ -47,7 +47,9 @@
 		// Tidy all the data in to the correct types as CSV gives everything as a string
 		csv.forEach(function(d, i) {
 			if (d['type'] === 'milestone') {
+				d.start_date = dateFormat.parse(d.start_date);
 				milestones.push(d);
+
 			} else {
 				d.id = i;
 				d.start_date = dateFormat.parse(d.start_date);
@@ -124,13 +126,16 @@
 			.attr('y2', canvas_height - 25)
 			.style('stroke', '#c00');
 
-		// var milestones = svg.append('line')
-		//  	.data('milestones', function(d){ return d.milestones})
-		// 	.attr('x1', xScale)
-		// 	.attr('x2', xScale)
-		// 	.attr('y1', 0)
-		// 	.attr('y2', canvas_height - 25)
-		// 	.style('stroke', '#c00');
+			milestones.forEach(function(milestone){
+				var _milestones = svg.append('line')
+			 	.data([milestone])
+				.attr('x1', xScale(milestone.start_date) + 1)
+				.attr('x2', xScale(milestone.start_date) + 1)
+				.attr('y1', -20)
+				.attr('y2', canvas_height - 25)
+				.style('stroke', '#666');
+			});
+		
 
 
 
@@ -152,17 +157,31 @@
 			.text('Today')
 			.attr('class', 'todaymarker')
 			.style('position', 'absolute')
-			.style('top', '-30px')
-			.style('left', function(d) { return xScale(d) + 'px' })
-			
+			.style('top', '-45px')
+			.style('left', function(d) { return (xScale(d) -1) + 'px' });
 
-		ganttBarContainer.append('div')
-			.data(milestones)
-			.text('Beta')
+		// console.log('milestones', milestones)
+		milestones.forEach(function(milestone){
+			ganttBarContainer.append('div')
+			.data([milestone])
+			.text(function(d) { return d.deliverable })
 			.attr('class', 'milestone')
 			.style('position', 'absolute')
-			.style('top', '0px')
-			.style('left', function(d) { return xScale(d) + 'px'});
+			.style('top', '-45px')
+			.style('left', function(d) { 
+				return xScale(d.start_date) + 'px'})
+
+		})
+		// ganttBarContainer.append('div')
+		// 	.data(milestones)
+		// 	.text(function(d) { return d.deliverable })
+		// 	.attr('class', 'milestone')
+		// 	.style('position', 'absolute')
+		// 	.style('top', '-30px')
+		// 	.style('left', function(d) { 
+		// 		console.log(xScale(d.start_date));
+		// 		console.log(d);
+		// 		return xScale(d.start_date) + 'px'});
 	}
 
 	var tooltip = d3.select('#tooltip');
