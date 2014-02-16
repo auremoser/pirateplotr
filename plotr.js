@@ -1,7 +1,9 @@
 // (function() {
 	// Function global to uncomment when push into someone else code, keep my vars mine
 	'use strict';
-
+	/*
+	 * SET VARS
+	 */
 	var canvas_width = d3.select('#chart-canvas').node().offsetWidth;
 
 	var teamColorScale = d3.scale.ordinal()
@@ -135,9 +137,6 @@
 				.attr('y2', canvas_height - 25)
 				.style('stroke', '#666');
 			});
-		
-
-
 
 		d3.select('#chart-canvas').style('height', canvas_height + 'px');
 
@@ -168,20 +167,10 @@
 			.attr('class', 'milestone')
 			.style('position', 'absolute')
 			.style('top', '-45px')
-			.style('left', function(d) { 
-				return xScale(d.start_date) + 'px'})
+			.style('left', function(d) { return xScale(d.start_date) + 'px'})
 
 		})
-		// ganttBarContainer.append('div')
-		// 	.data(milestones)
-		// 	.text(function(d) { return d.deliverable })
-		// 	.attr('class', 'milestone')
-		// 	.style('position', 'absolute')
-		// 	.style('top', '-30px')
-		// 	.style('left', function(d) { 
-		// 		console.log(xScale(d.start_date));
-		// 		console.log(d);
-		// 		return xScale(d.start_date) + 'px'});
+
 	}
 
 	var tooltip = d3.select('#tooltip');
@@ -294,7 +283,11 @@
 
 	/*
 	 * cALL THE THINGS
+	 * 'data/sample_data.csv'
 	 */
+	var proxy = 'http://www.enjoy-mondays.com/assets/services/proxy.php?url=';
+	var csvURL = 'https://docs.google.com/feeds/download/spreadsheets/Export?key=0AuDay9KcwU4YdEtSLVJnUk5XbUZnTUFYUXZBOFBGVFE&gid=0&exportFormat=csv';
+	
 	d3.csv('data/sample_data.csv', function(csv) {
 		tidyData(csv);
 		initialRender();

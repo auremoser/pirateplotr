@@ -1,12 +1,12 @@
 pirateplotr
 ===========
 
-Ushahidi viz for pirates to plot projects.  
+Ushahidi viz for pirates to plot projects and milestones.  
 
 Check out the [example here](http://ushahidi-auremoser.dotcloud.com/#).
 
 ### about
-This is a simple sortable chart for viewing projects and tracking them on a timeline. Future use cases might be adding resources to projects and plotting for planning. 
+This is a simple sortable chart for viewing projects and tracking them on a timeline. 
 
 This is mostly for pirates but also for everyone to have a global view of what's going on when and how the milestones/expectations/resourcing needs shake out.
 
@@ -20,22 +20,27 @@ This is mostly for pirates but also for everyone to have a global view of what's
 ### data
 Data csv looks like this:
 
-name	| amount	| start_date	| end_date 	| team
-:---:	| :----: 	| :--------: 	| :------: 	| :----:
-project1 | value1 	| date1 		| date2 	| external
-project2 | value2 	| date1 		| date2 	| core
+deliverable	| priority	| start_date	| end_date 	| team | type
+:---:	| :----: 	| :--------: 	| :------: 	| :----: | :----:
+project1 | value1 	| date1 		| date2 	| [V3/CrisisNet/...] | external
+project2 | value2 	| date1 		| date2 	| [V3/CrisisNet/...] | core
 
 #### key
-* **name** is project name
-* **amount** is an arbitrary weight (price point? resources?)
+* **deliverable** is project name
+* **priority** is an arbitrary weight (price point? resources?)[^1]
 * **dates** are the start and end date of a project
-* **team** is a an arbitrary tag assigned to projects for sorting purposes  
+* **team** is the name of the team responsible for the deliverable
+* **type** is one of 4 categories for filtering purposes (core, external, ops, milestone[^2])
+
 
 It's a spreadsheet because that's a maintainable format for all contributors; easily editable/updatable.
 
 Eventually maybe we'll update it as a github page linked to this repo.
 
 Yays thanks for reading!
+
+[^1]: We can decide what numerical value to prioritize by, I just wanted to log this as a sortable placeholder for future values we might want to track.
+[^2]: Milestones are vertical plum lines on the chart. You can draw a plum line, as opposed to a bar, by entering a deliverable name, start_date and type of project as "milestone"). Check the csv for examples of this.
 
 
 
