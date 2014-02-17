@@ -18,7 +18,11 @@ This is mostly for pirates but also for everyone to have a global view of what's
 ![Chart](https://raw2.github.com/auremoser/images/master/plotr.png) 
 
 ### data
-Data csv looks like this ![data.csv](https://raw2.github.com/auremoser/images/master/plotr-sheet.png)
+Data csv looks like this:
+
+![data.csv](https://raw2.github.com/auremoser/images/master/plotr-sheet.png)
+
+Headers are static, but all values are editable in the data.csv file.
 
 deliverable	| priority	| start_date	| end_date 	| team | type
 :---:	| :----: 	| :--------: 	| :------: 	| :----: | :----:
