@@ -286,9 +286,9 @@
 	 * 'data/sample_data.csv'
 	 */
 	var proxy = 'http://www.enjoy-mondays.com/assets/services/proxy.php?url=';
-	var csvURL = 'https://docs.google.com/feeds/download/spreadsheets/Export?key=0AuDay9KcwU4YdEtSLVJnUk5XbUZnTUFYUXZBOFBGVFE&gid=0&exportFormat=csv';
+	var csvURL = 'https://docs.google.com/spreadsheet/pub?key=0AlR1bR7sxqL-dFhnYWRNUm81WWNUai0ybjZRcWwyNXc&single=true&gid=0&output=csv';
 	
-	d3.csv('data/sample_data.csv', function(csv) {
+	d3.csv('data/data.csv', function(csv) {
 		tidyData(csv);
 		initialRender();
 		render();
