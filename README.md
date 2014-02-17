@@ -4,6 +4,7 @@ pirateplotr
 Ushahidi viz for pirates to plot projects and milestones.  
 
 Check out the [example here](http://auremoser.github.io/pirateplotr/).
+Video [tutorial here](http://vimeo.com/auremoser/plotrguide) pw: plotrpals.
 
 ### about
 This is a simple sortable chart for viewing projects and tracking them on a timeline. 
