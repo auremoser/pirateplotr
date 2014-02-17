@@ -31,10 +31,10 @@ project2 | value2 	| date1 		| date2 	| [V3/CrisisNet/...] | core
 
 #### key
 * **deliverable** is project name
-* **priority** is an arbitrary weight (price point? resources?)[^1]
+* **priority** is an arbitrary weight (price point? resources?)[1]
 * **dates** are the start and end date of a project
 * **team** is the name of the team responsible for the deliverable
-* **type** is one of 4 categories for filtering purposes (core, external, ops, milestone[^2])
+* **type** is one of 4 categories for filtering purposes (core, external, ops, milestone [2])
 
 
 It's a spreadsheet because that's a maintainable format for all contributors; easily editable/updatable.
@@ -43,8 +43,9 @@ Eventually maybe we'll update it as a github page linked to this repo.
 
 Yays thanks for reading!
 
-[^1]: We can decide what numerical value to prioritize by, I just wanted to log this as a sortable placeholder for future values we might want to track.
-[^2]: Milestones are vertical plum lines on the chart. You can draw a plum line, as opposed to a bar, by entering a deliverable name, start_date and type of project as "milestone"). Check the csv for examples of this.
+[1]: We can decide what numerical value to prioritize by, I just wanted to log this as a sortable placeholder for future values we might want to track.
+
+[2]: Milestones are vertical plum lines on the chart. You can draw a plum line, as opposed to a bar, by entering a deliverable name, start_date and type of project as "milestone"). Check the csv for examples of this.
 
 
 
