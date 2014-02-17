@@ -3,7 +3,7 @@ pirateplotr
 
 Ushahidi viz for pirates to plot projects and milestones.  
 
-Check out the [example here](http://ushahidi-auremoser.dotcloud.com/#).
+Check out the [example here](http://auremoser.github.io/pirateplotr/).
 
 ### about
 This is a simple sortable chart for viewing projects and tracking them on a timeline. 
@@ -18,7 +18,7 @@ This is mostly for pirates but also for everyone to have a global view of what's
 ![Chart](https://raw2.github.com/auremoser/images/master/plotr.png) 
 
 ### data
-Data csv looks like this:
+Data csv looks like this ![data.csv](https://raw2.github.com/auremoser/images/master/plotr-sheet.png)
 
 deliverable	| priority	| start_date	| end_date 	| team | type
 :---:	| :----: 	| :--------: 	| :------: 	| :----: | :----:
