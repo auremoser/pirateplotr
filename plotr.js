@@ -40,10 +40,12 @@
 	 * LOAD AND TIDY DATA
 	 */
 	 // Data comes in as a simple updateable csv, so names entities, values can update
-	 // Totes arbitrary values at this point for "priority", fix that
-	 // Priority is a column field because there's probably some # value we'll want to sort deliverables by
+	 // Gspreadsheet for CSV is here: https://docs.google.com/a/ushahidi.com/spreadsheet/ccc?key=0AlR1bR7sxqL-dFhnYWRNUm81WWNUai0ybjZRcWwyNXc&usp=sharing
+	 
 
-	var dateFormat = d3.time.format('%m/%d/%y');
+	 // Switch to lowercase Y in the d3.time.format if using an excel csv, it's uppercase because google spreadsheets formats it's dates differently
+	 // this is porting from gdocs, so I uppercased the Y
+	var dateFormat = d3.time.format('%m/%d/%Y');
 
 	function tidyData(csv) {
 		// Tidy all the data in to the correct types as CSV gives everything as a string
@@ -62,7 +64,8 @@
 		});
 
 		console.log(milestones);
-
+		// TO DO: Totes arbitrary values at this point for "priority", fix that
+	 	// Priority is a column field because there's probably some # value we'll want to sort deliverables by
 		// Set priority extent and scaling for whatever amount you want to prioritize (resources, counts, downloads, anything numeric)
 		var priority_extent = d3.extent(data, function(d) {return d.priority});
 		console.log(priority_extent);
@@ -284,11 +287,12 @@
 	/*
 	 * cALL THE THINGS
 	 * 'data/sample_data.csv'
+	 * var proxy = 'http://www.enjoy-mondays.com/assets/services/proxy.php?url=';
 	 */
-	var proxy = 'http://www.enjoy-mondays.com/assets/services/proxy.php?url=';
+
 	var csvURL = 'https://docs.google.com/spreadsheet/pub?key=0AlR1bR7sxqL-dFhnYWRNUm81WWNUai0ybjZRcWwyNXc&single=true&gid=0&output=csv';
 	
-	d3.csv('data/data.csv', function(csv) {
+	d3.csv(csvURL, function(csv) {
 		tidyData(csv);
 		initialRender();
 		render();
