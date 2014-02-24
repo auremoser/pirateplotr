@@ -3,19 +3,19 @@ pirateplotr
 
 Ushahidi viz for pirates to plot projects and milestones.  
 
-Check out the [example here](http://auremoser.github.io/pirateplotr/).
+Check out the [Pirate Plotr Render here](http://auremoser.github.io/pirateplotr/).
 Video [tutorial here](http://vimeo.com/auremoser/plotrguide) pw: plotrpals.
 
 ### about
 This is a simple sortable chart for viewing projects and tracking them on a timeline. 
 
-This is mostly for pirates @ Ushahidi but also for everyone to have a global view of what's going on when and how the milestones/expectations/resourcing needs shake out.
+This is mostly for pirates @Ushahidi but also for everyone to have a global view of what's going on when and how the milestones/expectations/resourcing needs shake out.
 
 ### how to
 1. ~~Edit the csv in the /data folder to your desired plotting verbage.~~[1]
 1. Edit data in the Google Spreadsheet [here](https://docs.google.com/a/ushahidi.com/spreadsheet/ccc?key=0AlR1bR7sxqL-dFhnYWRNUm81WWNUai0ybjZRcWwyNXc&usp=sharing).
-2. Spreadsheet will update in the chart on a semi-frequent basis, with all changes auto-integrated for Monday morning calls.
-3. View and Sort the chart! [Check the hosting page.](http://auremoser.github.io/pirateplotr/)  
+2. Spreadsheet will update in the chart on a semi-frequent basis (depends on google, usually you can refresh the [Pirate Plotr Render](http://auremoser.github.io/pirateplotr/) every 5 minutes and it will show your changes); all changes will be checked and QAuto-integrated for Monday morning calls.
+3. View and Sort the chart! [Check the Pirate Plotr Render page.](http://auremoser.github.io/pirateplotr/)  
 
 ![Chart](https://raw2.github.com/auremoser/images/master/plotr.png) 
 
