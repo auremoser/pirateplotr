@@ -1,5 +1,6 @@
 pirateplotr
 ===========
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/auremoser/pirateplotr/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 Ushahidi viz for pirates to plot projects and milestones.  
 
@@ -51,11 +52,4 @@ Yays thanks for reading! Shoot me questions if you have any: aurelia@ushahidi.co
 
 
 
-
-
-
-
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/auremoser/pirateplotr/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
