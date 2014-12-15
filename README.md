@@ -18,12 +18,12 @@ This is mostly for pirates @Ushahidi but also for everyone to have a global view
 2. Spreadsheet will update in the chart on a semi-frequent basis (depends on google, usually you can refresh the [Pirate Plotr Render](http://auremoser.github.io/pirateplotr/) every 5 minutes and it will show your changes); all changes will be checked and QAuto-integrated for Monday morning calls.
 3. View and Sort the chart! [Check the Pirate Plotr Render page.](http://auremoser.github.io/pirateplotr/)  
 
-![Chart](https://raw2.github.com/auremoser/images/master/plotr.png) 
+![Chart](https://raw.githubusercontent.com/auremoser/images/master/plotr.png) 
 
 ### data
 Data csv looks like this:
 
-![data.csv](https://raw2.github.com/auremoser/images/master/plotr-sheet.png)
+![data.csv](https://raw.githubusercontent.com/auremoser/images/master/plotr-sheet.png)
 
 Headers are static, but all values are editable in the data.csv file.
 
