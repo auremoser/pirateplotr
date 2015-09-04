@@ -41,7 +41,7 @@
 	 */
 	 // Data comes in as a simple updateable csv, so names entities, values can update
 	 // Gspreadsheet for CSV is here: https://docs.google.com/a/ushahidi.com/spreadsheet/ccc?key=0AlR1bR7sxqL-dFhnYWRNUm81WWNUai0ybjZRcWwyNXc&usp=sharing
-	 
+	 // Moved to https://docs.google.com/spreadsheets/d/1cWVY2Ax9Q7GE1_V6_0dTp6JLCF9t8oj4hoRlWE_RP4M/edit?usp=sharing
 
 	 // Switch to lowercase Y in the d3.time.format if using an excel csv, it's uppercase because google spreadsheets formats it's dates differently
 	 // this is porting from gdocs, so I uppercased the Y
@@ -290,12 +290,14 @@
 	 * var proxy = 'http://www.enjoy-mondays.com/assets/services/proxy.php?url=';
 	 */
 
-	var csvURL = 'https://docs.google.com/spreadsheet/pub?key=0AlR1bR7sxqL-dFhnYWRNUm81WWNUai0ybjZRcWwyNXc&single=true&gid=0&output=csv';
+	// var csvURL = 'https://docs.google.com/spreadsheet/pub?key=0AlR1bR7sxqL-dFhnYWRNUm81WWNUai0ybjZRcWwyNXc&single=true&gid=0&output=csv';
+	var csvURL = 'http://guarded-ocean-2049.herokuapp.com/https://docs.google.com/spreadsheet/pub?key=1cWVY2Ax9Q7GE1_V6_0dTp6JLCF9t8oj4hoRlWE_RP4M&single=true&gid=0&output=csv';
+	// var csvURL = 'https://docs.google.com/spreadsheets/d/1cWVY2Ax9Q7GE1_V6_0dTp6JLCF9t8oj4hoRlWE_RP4M/pub?gid=0&single=true&output=csv';
 	
 	d3.csv(csvURL, function(csv) {
 		tidyData(csv);
 		initialRender();
 		render();
 	});
-
+console.log('sagdsadfsafdsafdads')
 // })();

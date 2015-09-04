@@ -2,13 +2,13 @@ pirateplotr
 ===========
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/auremoser/pirateplotr/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
-Ushahidi viz for pirates to plot projects and milestones.  
+Ushahidi viz for pirates to plot projects and milestones.
 
 Check out the [Pirate Plotr Render here](http://auremoser.github.io/pirateplotr/).
 Video [tutorial here](http://vimeo.com/auremoser/plotrguide) pw: plotrpals.
 
 ### about
-This is a simple sortable chart for viewing projects and tracking them on a timeline. 
+This is a simple sortable chart for viewing projects and tracking them on a timeline.
 
 This is mostly for pirates @Ushahidi but also for everyone to have a global view of what's going on when and how the milestones/expectations/resourcing needs shake out.
 
@@ -16,9 +16,13 @@ This is mostly for pirates @Ushahidi but also for everyone to have a global view
 1. ~~Edit the csv in the /data folder to your desired plotting verbage.~~[1]
 1. Edit data in the Google Spreadsheet [here](https://docs.google.com/a/ushahidi.com/spreadsheet/ccc?key=0AlR1bR7sxqL-dFhnYWRNUm81WWNUai0ybjZRcWwyNXc&usp=sharing).
 2. Spreadsheet will update in the chart on a semi-frequent basis (depends on google, usually you can refresh the [Pirate Plotr Render](http://auremoser.github.io/pirateplotr/) every 5 minutes and it will show your changes); all changes will be checked and QAuto-integrated for Monday morning calls.
-3. View and Sort the chart! [Check the Pirate Plotr Render page.](http://auremoser.github.io/pirateplotr/)  
+3. View and Sort the chart! [Check the Pirate Plotr Render page.](http://auremoser.github.io/pirateplotr/)
 
+<<<<<<< HEAD
 ![Chart](https://raw.githubusercontent.com/auremoser/images/master/plotr.png) 
+=======
+![Chart](https://raw.githubusercontent.com/auremoser/images/master/plotr.png)
+>>>>>>> gh-pages
 
 ### data
 Data csv looks like this:
@@ -41,7 +45,7 @@ project2 | value2 	| date1 		| date2 	| [V3/CrisisNet/...] | core
 
 This is spreadsheet-powered because that's a maintainable format for all contributors; easily editable/updatable.
 
-Yays thanks for reading! Shoot me questions if you have any: aurelia@ushahidi.com.
+Yays thanks for reading! Shoot me questions if you have any: auremoser@gmail.com.
 
 [1]: Previously, I manually updated the /data/data.csv file and then populated that data in the chart. Now the chart is GDoc powered, to enable easier editing for all pirates in the party. :)
 
